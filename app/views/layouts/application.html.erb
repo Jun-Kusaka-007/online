@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Salon</title>
+    <title>SalonTest</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,6 +10,22 @@
   </head>
 
   <body>
+   
+  <% if logged_in? %>
+      現在のログインユーザー：<%= current_user.name %>
+  　     <% if @current_user.admin == true %>
+           ＊管理権限あり
+           <%= link_to "ユーザー一覧", users_path %>
+  　     <% else %>
+           ＊管理権限なし
+  　     <% end %>
+      <%= link_to "ログアウト", logout_path, method: :delete %>
+  <% else %>
+      <%= link_to "ログイン", login_path %>
+      <%= link_to "新規登録", new_user_path %>
+  <% end %>
+
+
     <%= yield %>
   </body>
 </html>

@@ -13,8 +13,8 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: root
-  password:
+  username: online-test-1
+  password: PASS@pass1
   host: localhost
 
 development:
@@ -50,5 +50,5 @@ test:
 production:
   <<: *default
   database: salon_production
-  username: salon
+  username: online-test-1
   password: <%= ENV['SALON_DATABASE_PASSWORD'] %>
