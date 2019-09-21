@@ -17,8 +17,10 @@ class ApplicationController < ActionController::Base
  
     def edit_user_only
         unless current_user.id == params[:id].to_i
+            unless current_user.admin == true
         # flash[:notice] = "not ather edit"
-         redirect_to "/users/#{@current_user.id}", notice: 'Not ather edit.'
+         redirect_to "/users/#{@current_user.id}", notice: '権限がありません.'
+            end
         end
     end
  

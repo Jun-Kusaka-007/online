@@ -2,9 +2,8 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :login_please, only: [:edit, :update, :index, :show, :destroy]
   before_action :login_now, only: [:new, :create]
-  before_action :edit_user_only, only: [:edit, :update]
+  before_action :edit_user_only, only: [:edit, :update, :show]
   before_action :admin_user, only: [:index]
-
   # GET /users
   def index
     @users = User.all
@@ -26,8 +25,12 @@ class UsersController < ApplicationController
   # POST /users
   def create
     @user = User.new(user_params)
-
+  
     if @user.save
+      if @user.id == 1
+        @user.admin = true 
+        @user.save
+      end
       log_in @user
       redirect_to @user, notice: 'User was successfully created.'
     else
